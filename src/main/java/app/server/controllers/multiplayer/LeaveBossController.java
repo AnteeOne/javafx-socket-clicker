@@ -1,5 +1,6 @@
 package app.server.controllers.multiplayer;
 
+import app.model.Room;
 import app.network.connections.Connection;
 import app.network.connections.ServerSocketConnection;
 import app.network.messages.MessageTypes;
@@ -44,11 +45,13 @@ public class LeaveBossController extends Controller implements IBroadcastSender 
 
         roomsRepository = RoomsRepository.getInstance();
         Integer roomId = Integer.parseInt(headers.get(0));
+        Room room = roomsRepository.getRoom(roomId);
 
         try {
             ArrayList content = new ArrayList();
             content.add(Codes.ROOM_LEAVE_BOSS_OK.name());
             content.add(roomId);
+            content.add(room);
             ObjectSocketMessage response = new ObjectSocketMessage(MessageTypes.STATUS , content);
             for (ServerSocketConnection mcConnection : connections) {
                 if (mcConnection.getRoomId() == roomId) {

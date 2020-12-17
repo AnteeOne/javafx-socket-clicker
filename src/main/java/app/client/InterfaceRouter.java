@@ -34,6 +34,9 @@ public class InterfaceRouter {
             case "ROOM_CHOOSE_BOSS_OK": {
                 return new Info("toBossFromRoom", message.getContent());
             }
+            case "ROOM_LEAVE_BOSS_OK": {
+                return new Info("leaveBossRoom", message.getContent());
+            }
             case "DATA_OK":{
                 interfaceController.setSessionClicks(Integer.parseInt(message.getContent().get(2).toString()));
                 return new Info("single");

@@ -94,16 +94,14 @@ public class GameGUI extends Application implements UI {
         }
     }
 
-    public void toBoss(Boss boss) {
-        System.out.println("room clicks: " + InterfaceHandler.getInstance(this).getSession().getRoomClicksCount());
-        System.out.println("user clicks: " + InterfaceHandler.getInstance(this).getSessionClicks());
+    public void toBoss(Boss boss, int roomId) {
         if (boss.access <= InterfaceHandler.getInstance(this).getSessionClicks()
             || boss.access <= InterfaceHandler.getInstance(this).getSession().getRoomClicksCount()) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/bosses/boss.fxml"));
                 Parent root = loader.load();
                 currentBoss = loader.getController();
-                currentBoss.init(this, boss.name, boss.health, boss.viewPath);
+                currentBoss.init(this, boss.name, boss.health, boss.viewPath, roomId);
                 primaryStage.setTitle("Boss");
                 primaryStage.setScene(new Scene(root));
                 primaryStage.show();
@@ -170,8 +168,6 @@ public class GameGUI extends Application implements UI {
     }
 
     // actions
-
-    // че ето?
     public void signUp() {
         ArrayList<String> userInfo = new ArrayList<>();
         userInfo.add(login.getText());
@@ -237,7 +233,11 @@ public class GameGUI extends Application implements UI {
                 break;
             }
             case "toBossFromRoom": {
-                toBoss((Boss) infoFormServer.getPayload().get(2));
+                toBoss((Boss) infoFormServer.getPayload().get(2), (Integer) infoFormServer.getPayload().get(1));
+                break;
+            }
+            case "leaveBossRoom": {
+                toBoses((Room) infoFormServer.getPayload().get(2));
                 break;
             }
             default: {

@@ -228,7 +228,8 @@ public class GameGUI extends Application implements UI {
                 break;
             }
             // multiplayer
-            case "bosses": {
+            case "bosses":
+            case "leaveBossRoom": {
                 toBoses((Room) infoFormServer.getPayload().get(2));
                 break;
             }
@@ -236,8 +237,8 @@ public class GameGUI extends Application implements UI {
                 toBoss((Boss) infoFormServer.getPayload().get(2), (Integer) infoFormServer.getPayload().get(1));
                 break;
             }
-            case "leaveBossRoom": {
-                toBoses((Room) infoFormServer.getPayload().get(2));
+            case "updateBossData": {
+                this.currentBoss.updateBossData();
                 break;
             }
             default: {

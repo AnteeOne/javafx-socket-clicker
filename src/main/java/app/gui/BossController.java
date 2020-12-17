@@ -2,6 +2,7 @@ package app.gui;
 
 import app.client.InterfaceHandler;
 import app.gui.media.SoundPlayer;
+import app.model.Room;
 import app.network.messages.MessageTypes;
 import app.network.messages.SocketMessage;
 import javafx.fxml.FXML;
@@ -31,7 +32,10 @@ public class BossController {
     @FXML
     public ImageView bossView;
 
-    public void init(GameGUI parent, String name, int health, String img) {
+    public int roomId;
+
+    public void init(GameGUI parent, String name, int health, String img, int roomId) {
+        this.roomId = roomId;
         this.parent = parent;
         this.bossName.setText(name);
         this.health = health;
@@ -54,7 +58,16 @@ public class BossController {
 
     public void toBosses() {
         this.updateUserClicks();
-        this.parent.toBosesFromBoss();
+
+        if (roomId != -1) {
+            ArrayList<String> data = new ArrayList<>();
+            data.add(String.valueOf(roomId));
+            InterfaceHandler.getInstance(this.parent).interfaceService.sendMessage(
+                    new SocketMessage(MessageTypes.ROOM_BOSS_LEAVE,data)
+            );
+        } else {
+            this.parent.toBosesFromBoss();
+        }
     }
 
     public void updateUserClicks(){

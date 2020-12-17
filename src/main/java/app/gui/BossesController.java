@@ -137,6 +137,7 @@ public class BossesController {
 
     public void toBoss(Boss boss) {
 
+        // multi
         if (currentRoom != null) {
             ArrayList<String> bossInfo = new ArrayList<>();
 
@@ -148,7 +149,10 @@ public class BossesController {
 
             SocketMessage message = new SocketMessage(MessageTypes.ROOM_BOSS_CHOOSE, bossInfo);
             InterfaceHandler.getInstance(parent).interfaceService.sendMessage(message);
+            this.parent.toBoss(boss, currentRoom.roomId);
+        } else {
+            // single
+            this.parent.toBoss(boss, -1);
         }
-        this.parent.toBoss(boss);
     }
 }

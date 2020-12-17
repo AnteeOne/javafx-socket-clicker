@@ -73,7 +73,8 @@ public class ChooseBossController extends Controller implements IBroadcastSender
                     mcConnection.send(response);
                 }
             }
-
+            println(LoggerService.level.INFO.name() , "server" , "Boss \"" + boss.name +
+                    "\" has been chosen in Room-" + roomId);
         } catch (IOException e) {
             println(LoggerService.level.ERROR.name() , "server" , "Unable to choose boss in Room-" + roomId);
         }

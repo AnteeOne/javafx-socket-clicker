@@ -14,17 +14,18 @@ import java.util.ArrayList;
 
 import static app.services.LoggerService.println;
 
-public class LeaveBossController extends Controller implements IBroadcastSender {
+public class RoomUpdateController extends Controller implements IBroadcastSender {
 
     private RoomsRepository roomsRepository;
 
-    public LeaveBossController(Connection connection) {
-        super(connection);
+    enum Codes{
+        ROOM_UPDATE_OK,
+        ROOM_UPDATE_ERROR
     }
 
-    enum Codes {
-        ROOM_LEAVE_BOSS_OK,
-        ROOM_LEAVE_BOSS_ERROR
+
+    public RoomUpdateController(Connection connection) {
+        super(connection);
     }
 
     /***
@@ -34,7 +35,6 @@ public class LeaveBossController extends Controller implements IBroadcastSender 
      * Sending message to the client with current headers:
      *  - header[0] - response message status (to ENUM statuses)
      *  - header[1] - room_id (to int)
-     *  - header[2] - room (to room)
      ***/
 
     @Override
@@ -50,25 +50,19 @@ public class LeaveBossController extends Controller implements IBroadcastSender 
 
         try {
             ArrayList content = new ArrayList();
-            content.add(Codes.ROOM_LEAVE_BOSS_OK.name());
+            content.add(Codes.ROOM_UPDATE_OK.name());
             content.add(roomId);
             ObjectSocketMessage response = new ObjectSocketMessage(MessageTypes.STATUS , content);
-            for (ServerSocketConnection mcConnection : connections) {
-                if (mcConnection.getRoomId() == roomId) {
+
+            for (ServerSocketConnection mcConnection:connections) {
+                if(mcConnection.getRoomId() == roomId && mcConnection!=getConnection()){
                     mcConnection.send(response);
                 }
             }
-            println(LoggerService.level.INFO.name(),"server","Players leaved from the boss in the Room-" + roomId);
         }
-        catch (IOException e) {
-            println(LoggerService.level.ERROR.name(),"server","Error with leaving " +
-                    "from the boss in the Room-" + roomId);
+        catch (IOException e){
+            println(LoggerService.level.ERROR.name(),"server","Unable to update clicks in  Room-" + roomId);
         }
 
-    }
-
-    @Override
-    public ServerSocketConnection getConnection() {
-        return (ServerSocketConnection) super.getConnection();
     }
 }

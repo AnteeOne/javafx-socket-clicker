@@ -41,7 +41,7 @@ public class BossesController {
         int usersScore = 0;
         // если мультипллеер - считаем
         // проверка на нахождение в комнате
-        if (InterfaceHandler.getInstance(this.parent).getSession().getRoomId() != -1 && room != null) {
+        if (room != null) {
 
                 for (int i = 0; i < room.roomUsers.size(); i++) {
                     usersScore += room.roomUsers.get(i).getClicksCount();

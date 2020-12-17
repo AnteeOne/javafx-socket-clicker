@@ -40,7 +40,7 @@ public class BossController {
         this.bossName.setText(name);
         this.health = health;
         this.healhFieled.setText("Health: " + Integer.toString(health));
-        this.score = InterfaceHandler.getInstance(this.parent).getSessionClicks();
+        this.score = InterfaceHandler.getInstance(this.parent).getSessionClicks(); // взяли score юзера
         this.bossView.setImage(new Image(img));
     }
 
@@ -50,6 +50,23 @@ public class BossController {
                 InterfaceHandler.getInstance(this.parent).getSessionClicks() + 1
         );
 
+        if (this.health > 0) this.health--;
+        scoreField.setText("Score: " + this.score);
+        healhFieled.setText("Health: " + this.health);
+        SoundPlayer.playSound("oh.wav");
+
+        // multi-player
+        if (roomId != -1) {
+            ArrayList<String> data = new ArrayList<>();
+            data.add(String.valueOf(roomId));
+            InterfaceHandler.getInstance(this.parent).interfaceService.sendMessage(
+                    new SocketMessage(MessageTypes.ROOM_DATA_UPDATE,data)
+            );
+        }
+    }
+
+    public void updateBossData() {
+        this.score++;
         if (this.health > 0) this.health--;
         scoreField.setText("Score: " + this.score);
         healhFieled.setText("Health: " + this.health);
@@ -71,10 +88,15 @@ public class BossController {
     }
 
     public void updateUserClicks(){
+        System.out.println(InterfaceHandler.getInstance(this.parent).getSession().getRoomClicksCount());
+        System.out.println(score);
         if (InterfaceHandler.getInstance(this.parent).getSession().getRoomClicksCount() != -1) { // room'a
 
-            InterfaceHandler.getInstance(this.parent).getSession().setRoomClicksCount(
-                    InterfaceHandler.getInstance(this.parent).getSession().getRoomClicksCount() + score
+//            InterfaceHandler.getInstance(this.parent).getSession().setRoomClicksCount(
+//                    InterfaceHandler.getInstance(this.parent).getSession().getRoomClicksCount() + score
+//            );
+            InterfaceHandler.getInstance(this.parent).getSession().setClicksCount(
+                    InterfaceHandler.getInstance(this.parent).getSession().getClicksCount() + score
             );
         }
         ArrayList<String> data = new ArrayList<>();

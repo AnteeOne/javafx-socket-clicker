@@ -41,6 +41,9 @@ public class InterfaceRouter {
                 interfaceController.setSessionClicks(Integer.parseInt(message.getContent().get(2).toString()));
                 return new Info("single");
             }
+            case "ROOM_UPDATE_OK": {
+                return new Info("updateBossData", message.getContent());
+            }
             case "DATA_ERROR":{
 
             }

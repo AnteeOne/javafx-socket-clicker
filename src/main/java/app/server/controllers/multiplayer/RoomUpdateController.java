@@ -30,7 +30,7 @@ public class RoomUpdateController extends Controller implements IBroadcastSender
 
     /***
      * @param headers
-     * Getting message from client with current headers:
+     * Getting message (ROOM_DATA_UPDATE) from client with current headers:
      *  -  headers[0] - room_id
      * Sending message to the client with current headers:
      *  - header[0] - response message status (to ENUM statuses)

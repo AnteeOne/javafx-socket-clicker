@@ -58,6 +58,10 @@ public class MessageRouter implements Router {
                 new ChooseBossController(connection).runBroadcast(headers,connections);
                 break;
             }
+            case ROOM_DATA_UPDATE:{
+                new RoomUpdateController(connection).runBroadcast(headers,connections);
+                break;
+            }
 
             default:;
         }

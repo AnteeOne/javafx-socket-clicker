@@ -11,7 +11,8 @@ public enum MessageTypes {
     ROOM_DISCONNECT,
     ROOM_START,
     ROOM_BOSS_LEAVE,
-    ROOM_BOSS_CHOOSE
+    ROOM_BOSS_CHOOSE,
+    ROOM_DATA_UPDATE
 }
 
 

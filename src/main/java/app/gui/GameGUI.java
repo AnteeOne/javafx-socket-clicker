@@ -9,6 +9,7 @@ import app.network.messages.Message;
 import app.network.messages.MessageTypes;
 import app.network.messages.SocketMessage;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -55,8 +56,12 @@ public class GameGUI extends Application implements UI {
 
                 ArrayList<String> userInfo = new ArrayList<>();
                 userInfo.add(InterfaceHandler.getInstance(GameGUI.this).getSession().getUsername());
-                SocketMessage message = new SocketMessage(MessageTypes.USER_CLICKS_GET,userInfo);
+                userInfo.add(String.valueOf(InterfaceHandler.getInstance(GameGUI.this).getSession().getRoomId()));
+                userInfo.add(String.valueOf(InterfaceHandler.getInstance(GameGUI.this).getSession().getClicksCount()));
+                SocketMessage message = new SocketMessage(MessageTypes.DISCONNECT,userInfo);
                 InterfaceHandler.getInstance(GameGUI.this).interfaceService.sendMessage(message);
+                Platform.exit();
+                System.exit(0);
 
                 try {
                     stop();

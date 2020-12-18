@@ -1,6 +1,8 @@
 package app.server.controllers.multiplayer;
 
+import app.data.repositories.UserRepository;
 import app.model.Room;
+import app.model.User;
 import app.network.connections.Connection;
 import app.network.connections.ServerSocketConnection;
 import app.network.messages.MessageTypes;
@@ -11,6 +13,7 @@ import app.server.rooms.RoomsRepository;
 import app.services.LoggerService;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static app.services.LoggerService.println;
@@ -49,8 +52,11 @@ public class LeaveBossController extends Controller implements IBroadcastSender 
         roomsRepository = RoomsRepository.getInstance();
         Integer roomId = Integer.parseInt(headers.get(0));
         Room room = roomsRepository.getRoom(roomId);
-
         try {
+            for (User user: room.getRoomUsers()) {
+                user.setClicksCount(UserRepository.getInstance().getByUsername(user.getUsername()).getClicksCount());
+            }
+
             ArrayList content = new ArrayList();
             content.add(Codes.ROOM_LEAVE_BOSS_OK.name());
             content.add(roomId);
@@ -66,6 +72,9 @@ public class LeaveBossController extends Controller implements IBroadcastSender 
         catch (IOException e) {
             println(LoggerService.level.ERROR.name(),"server","Error with leaving " +
                     "from the boss in the Room-" + roomId);
+        }
+        catch (SQLException e){
+            //todo
         }
 
     }

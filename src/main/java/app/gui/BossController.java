@@ -97,7 +97,7 @@ public class BossController {
     public void updateUserClicks(){
         System.out.println(InterfaceHandler.getInstance(this.parent).getSession().getRoomClicksCount());
         System.out.println(score);
-//        if (roomId != -1) { // room'a
+        if (roomId != -1) { // room'a
 
             InterfaceHandler.getInstance(this.parent).setSessionUserClicks(
                     score
@@ -105,7 +105,7 @@ public class BossController {
 
             System.out.println("clicks: " + InterfaceHandler.getInstance(this.parent).getSessionUserClicks() + " from " + InterfaceHandler.getInstance(this.parent).getSession().getUsername());
 
-//        }
+        }
         ArrayList<String> data = new ArrayList<>();
         data.add(InterfaceHandler.getInstance(this.parent).getSession().getUsername());
         data.add(String.valueOf(InterfaceHandler.getInstance(this.parent).getSessionUserClicks()));

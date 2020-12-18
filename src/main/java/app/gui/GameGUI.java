@@ -2,6 +2,7 @@ package app.gui;
 
 import app.client.InterfaceHandler;
 import app.client.InterfaceRouter;
+import app.gui.media.TrackPlayer;
 import app.model.Boss;
 import app.model.Info;
 import app.model.Room;
@@ -25,6 +26,7 @@ public class GameGUI extends Application implements UI {
     private BossController currentBoss;
     public RoomController currentRoom;
     private RoomTakeController roomTake;
+    private TrackPlayer trackPlayer = new TrackPlayer("battle.mp3");;
 
     public static Stage primaryStage;
 
@@ -58,6 +60,7 @@ public class GameGUI extends Application implements UI {
         primaryStage.setTitle("RPG clicker");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
     }
 
     // routes
@@ -89,6 +92,7 @@ public class GameGUI extends Application implements UI {
             primaryStage.setTitle("Menu");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
+            trackPlayer.stop();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -105,6 +109,7 @@ public class GameGUI extends Application implements UI {
                 primaryStage.setTitle("Boss");
                 primaryStage.setScene(new Scene(root));
                 primaryStage.show();
+                trackPlayer.play();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -120,6 +125,7 @@ public class GameGUI extends Application implements UI {
             primaryStage.setTitle("Bosses");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
+            trackPlayer.stop();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -134,6 +140,7 @@ public class GameGUI extends Application implements UI {
             primaryStage.setTitle("Bosses");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
+            trackPlayer.stop();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -162,6 +169,7 @@ public class GameGUI extends Application implements UI {
             primaryStage.setTitle("Room");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
+            trackPlayer.stop();
         } catch (IOException ex) {
             ex.printStackTrace();
         }

@@ -95,7 +95,7 @@ public class GameGUI extends Application implements UI {
     }
 
     public void toBoss(Boss boss, int roomId) {
-        if (boss.access <= InterfaceHandler.getInstance(this).getSessionClicks()
+        if (boss.access <= InterfaceHandler.getInstance(this).getSessionUserClicks()
             || boss.access <= InterfaceHandler.getInstance(this).getSession().getRoomClicksCount()) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/bosses/boss.fxml"));
@@ -230,6 +230,7 @@ public class GameGUI extends Application implements UI {
             // multiplayer
             case "bosses":
             case "leaveBossRoom": {
+
                 toBoses((Room) infoFormServer.getPayload().get(2));
                 break;
             }

@@ -45,19 +45,27 @@ public class InterfaceHandler implements MessageListener {
         ui.getAnswer(message);
     }
 
-    public void setSession(String username){
-        this.connection.setSessionUsername(username);
-    }
-
     public Session getSession(){
         return this.connection.getSession();
     }
 
-    public int getSessionClicks(){
-        return this.connection.getSession().getClicksCount();
+    public void setSession(String username){
+        this.connection.setSessionUsername(username);
     }
 
-    public void setSessionClicks(int value){
-        this.connection.getSession().setClicksCount(value);
+    public int getSessionUserClicks(){
+        return this.connection.getSessionUserClicks();
+    }
+
+    public void setSessionUserClicks(int clicks){
+        this.connection.setSessionUserClicks(clicks);
+    }
+
+    public int getSessionRoomClicks(){
+        return this.connection.getSessionRoomClicks();
+    }
+
+    public void setSessionRoomClicks(int clicks){
+        this.connection.setSessionRoomClicks(clicks);
     }
 }

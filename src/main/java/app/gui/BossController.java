@@ -2,7 +2,6 @@ package app.gui;
 
 import app.client.InterfaceHandler;
 import app.gui.media.SoundPlayer;
-import app.model.Room;
 import app.network.messages.MessageTypes;
 import app.network.messages.SocketMessage;
 import javafx.fxml.FXML;
@@ -10,9 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-import javax.sound.sampled.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class BossController {
@@ -40,15 +36,16 @@ public class BossController {
         this.bossName.setText(name);
         this.health = health;
         this.healhFieled.setText("Health: " + Integer.toString(health));
-        this.score = InterfaceHandler.getInstance(this.parent).getSessionClicks(); // взяли score юзера
+        this.score = InterfaceHandler.getInstance(this.parent).getSessionUserClicks(); // взяли score юзера
         this.bossView.setImage(new Image(img));
     }
 
     public void click() {
+
         this.score++;
-        InterfaceHandler.getInstance(this.parent).setSessionClicks(
-                InterfaceHandler.getInstance(this.parent).getSessionClicks() + 1
-        );
+//        InterfaceHandler.getInstance(this.parent).setSessionUserClicks(
+//                InterfaceHandler.getInstance(this.parent).getSessionRoomClicks() + 1
+//        );
 
         if (this.health > 0) this.health--;
         scoreField.setText("Score: " + this.score);
@@ -63,14 +60,21 @@ public class BossController {
                     new SocketMessage(MessageTypes.ROOM_DATA_UPDATE,data)
             );
         }
+
+
+        this.updateUserClicks();
+
     }
 
     public void updateBossData() {
+
+        this.updateUserClicks();
+
         this.score++;
         if (this.health > 0) this.health--;
         scoreField.setText("Score: " + this.score);
         healhFieled.setText("Health: " + this.health);
-        SoundPlayer.playSound("oh.wav");
+        SoundPlayer.playSound("ohh.wav");
     }
 
     public void toBosses() {
@@ -82,6 +86,7 @@ public class BossController {
             InterfaceHandler.getInstance(this.parent).interfaceService.sendMessage(
                     new SocketMessage(MessageTypes.ROOM_BOSS_LEAVE,data)
             );
+            this.parent.toBosesFromBoss();
         } else {
             this.parent.toBosesFromBoss();
         }
@@ -90,18 +95,18 @@ public class BossController {
     public void updateUserClicks(){
         System.out.println(InterfaceHandler.getInstance(this.parent).getSession().getRoomClicksCount());
         System.out.println(score);
-        if (InterfaceHandler.getInstance(this.parent).getSession().getRoomClicksCount() != -1) { // room'a
+//        if (roomId != -1) { // room'a
 
-//            InterfaceHandler.getInstance(this.parent).getSession().setRoomClicksCount(
-//                    InterfaceHandler.getInstance(this.parent).getSession().getRoomClicksCount() + score
-//            );
-            InterfaceHandler.getInstance(this.parent).getSession().setClicksCount(
-                    InterfaceHandler.getInstance(this.parent).getSession().getClicksCount() + score
+            InterfaceHandler.getInstance(this.parent).setSessionUserClicks(
+                    score
             );
-        }
+
+            System.out.println("clicks: " + InterfaceHandler.getInstance(this.parent).getSessionUserClicks() + " from " + InterfaceHandler.getInstance(this.parent).getSession().getUsername());
+
+//        }
         ArrayList<String> data = new ArrayList<>();
         data.add(InterfaceHandler.getInstance(this.parent).getSession().getUsername());
-        data.add(String.valueOf(score));
+        data.add(String.valueOf(InterfaceHandler.getInstance(this.parent).getSessionUserClicks()));
         InterfaceHandler.getInstance(this.parent).interfaceService.sendMessage(
                 new SocketMessage(MessageTypes.USER_CLICKS_PUT,data)
         );

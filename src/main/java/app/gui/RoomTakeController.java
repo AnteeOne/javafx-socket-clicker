@@ -6,7 +6,6 @@ import app.network.messages.SocketMessage;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class RoomTakeController {
@@ -19,7 +18,7 @@ public class RoomTakeController {
 
     public void init(GameGUI parent) {
         this.parent = parent;
-        this.score = InterfaceHandler.getInstance(this.parent).getSessionClicks();
+        this.score = InterfaceHandler.getInstance(this.parent).getSessionUserClicks();
     }
 
     public void toMenu() {

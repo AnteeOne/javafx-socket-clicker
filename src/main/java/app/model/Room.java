@@ -16,7 +16,6 @@ public class Room implements Serializable {
     public int roomId;
     public boolean isRunning;
 
-
     public Room(int id){
         this.roomUsers = new ArrayList<>();
         this.roomId = id;

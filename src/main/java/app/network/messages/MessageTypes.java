@@ -5,6 +5,7 @@ public enum MessageTypes {
     LOGIN,
     MESSAGE,
     STATUS,
+    DISCONNECT,
     USER_CLICKS_GET,
     USER_CLICKS_PUT,
     ROOM_CONNECT,

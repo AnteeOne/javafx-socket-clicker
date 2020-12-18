@@ -31,6 +31,7 @@ public class GameGUI extends Application implements UI {
     private RoomTakeController roomTake;
     private RegistrationController registrationPage;
     private LoginController loginPage;
+    private MenuController menuPage;
 
     public static Stage primaryStage;
 
@@ -105,7 +106,10 @@ public class GameGUI extends Application implements UI {
 
     public void toMenu() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/assets/menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/menu.fxml"));
+            Parent root = loader.load();
+            menuPage = loader.getController();
+            menuPage.init(this);
             primaryStage.setTitle("Menu");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
@@ -185,21 +189,6 @@ public class GameGUI extends Application implements UI {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-    // actions
-    public void single() {
-        ArrayList<String> userInfo = new ArrayList<>();
-        userInfo.add(InterfaceHandler.getInstance(this).getSession().getUsername());
-        SocketMessage message = new SocketMessage(MessageTypes.USER_CLICKS_GET,userInfo);
-        InterfaceHandler.getInstance(this).interfaceService.sendMessage(message);
-    }
-
-
-    // TODO: remove
-    public void toBosesFromBoss(){
-        // updateClicks в BossConroller'e
-        toBoses();
     }
 
     @Override

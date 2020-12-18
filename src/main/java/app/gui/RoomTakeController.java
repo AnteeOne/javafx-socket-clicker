@@ -26,7 +26,9 @@ public class RoomTakeController {
     }
 
     public void roomConnect() {
-        connect(roomInput.getText());
+        if (roomInput.getText().matches("[-+]?\\d+")) {
+            connect(roomInput.getText());
+        }
     }
 
     // отправляем сообщение о коннекте к комнате

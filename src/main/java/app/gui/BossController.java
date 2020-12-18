@@ -4,9 +4,11 @@ import app.client.InterfaceHandler;
 import app.gui.media.SoundPlayer;
 import app.network.messages.MessageTypes;
 import app.network.messages.SocketMessage;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ public class BossController {
 
     public int roomId;
 
+    boolean animate = false;
+
     public void init(GameGUI parent, String name, int health, String img, int roomId) {
         this.roomId = roomId;
         this.parent = parent;
@@ -40,6 +44,20 @@ public class BossController {
         this.score = InterfaceHandler.getInstance(this.parent).getSessionUserClicks(); // взяли score юзера
         this.bossView.setImage(new Image(img));
         this.soundFileName = name;
+
+        bossView.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (animate) {
+                    bossView.setFitHeight(250);
+                    bossView.setFitWidth(400);
+                } else {
+                    bossView.setFitHeight(220);
+                    bossView.setFitWidth(352);
+                }
+                animate = !animate;
+            }
+        });
     }
 
     public void click() {

@@ -66,7 +66,6 @@ public class BossController {
         if (this.health > 0) this.health--;
         scoreField.setText("Score: " + this.score);
         healhFieled.setText("Health: " + this.health);
-        SoundPlayer.playSound("ohh.wav");
     }
 
     public void toBosses() {

@@ -15,6 +15,7 @@ public class BossController {
     private GameGUI parent; // replace by interface
     private int health;
     private int score;
+    private String soundFileName;
 
     @FXML
     public Text bossName;
@@ -38,6 +39,7 @@ public class BossController {
         this.healhFieled.setText("Health: " + Integer.toString(health));
         this.score = InterfaceHandler.getInstance(this.parent).getSessionUserClicks(); // взяли score юзера
         this.bossView.setImage(new Image(img));
+        this.soundFileName = name;
     }
 
     public void click() {
@@ -50,7 +52,7 @@ public class BossController {
         if (this.health > 0) this.health--;
         scoreField.setText("Score: " + this.score);
         healhFieled.setText("Health: " + this.health);
-        SoundPlayer.playSound("ohh.wav");
+        SoundPlayer.playSound(soundFileName + ".wav");
 
         // multi-player
         if (roomId != -1) {

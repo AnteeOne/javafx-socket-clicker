@@ -78,9 +78,9 @@ public class BossController {
             InterfaceHandler.getInstance(this.parent).interfaceService.sendMessage(
                     new SocketMessage(MessageTypes.ROOM_BOSS_LEAVE,data)
             );
-            this.parent.toBosesFromBoss();
+            this.parent.toBoses();
         } else {
-            this.parent.toBosesFromBoss();
+            this.parent.toBoses();
         }
     }
 

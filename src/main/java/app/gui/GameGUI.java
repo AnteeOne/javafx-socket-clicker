@@ -30,6 +30,7 @@ public class GameGUI extends Application implements UI {
     private RoomTakeController roomTake;
     private RegistrationController registrationPage;
     private LoginController loginPage;
+    private MenuController menuPage;
 
     public static Stage primaryStage;
 
@@ -100,7 +101,10 @@ public class GameGUI extends Application implements UI {
 
     public void toMenu() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/assets/menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/assets/menu.fxml"));
+            Parent root = loader.load();
+            menuPage = loader.getController();
+            menuPage.init(this);
             primaryStage.setTitle("Menu");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();

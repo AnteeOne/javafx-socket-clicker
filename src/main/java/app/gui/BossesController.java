@@ -43,20 +43,8 @@ public class BossesController {
         // проверка на нахождение в комнате
         if (room != null) {
 
-//                int diff = 0;
-
-                // fixme: данные в поле room.roomUsers.get(i).getClicksCount() не обновляются, в сессии они лежат актуальные (InterfaceHandler.getInstance(this.parent).getSessionUserClicks())
-                // обновили данные в объекте юзера
-//                for (int i = 0; i < room.roomUsers.size(); i++) {
-//                    if (room.roomUsers.get(i).getUsername().equals(InterfaceHandler.getInstance(this.parent).getSession().getUsername())) {
-//                        diff = InterfaceHandler.getInstance(this.parent).getSessionUserClicks() - room.roomUsers.get(i).getClicksCount();
-//                        room.roomUsers.get(i).setClicksCount(InterfaceHandler.getInstance(this.parent).getSessionUserClicks());
-//                    }
-//                }
-
                 for (int i = 0; i < room.roomUsers.size(); i++) {
                     usersScore += room.roomUsers.get(i).getClicksCount();
-                    System.out.println(room.roomUsers.get(i).getClicksCount() + " from " + room.roomUsers.get(i).getUsername());
                 }
 
                 InterfaceHandler.getInstance(this.parent).getSession().setRoomClicksCount(usersScore);

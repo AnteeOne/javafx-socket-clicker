@@ -41,7 +41,7 @@ public class BossesController {
         int usersScore = 0;
         // если мультипллеер - считаем
         // проверка на нахождение в комнате
-        if (InterfaceHandler.getInstance(this.parent).getSession().getRoomId() != -1 && room != null) {
+        if (room != null) {
 
                 for (int i = 0; i < room.roomUsers.size(); i++) {
                     usersScore += room.roomUsers.get(i).getClicksCount();
@@ -137,6 +137,7 @@ public class BossesController {
 
     public void toBoss(Boss boss) {
 
+        // multi
         if (currentRoom != null) {
             ArrayList<String> bossInfo = new ArrayList<>();
 
@@ -148,7 +149,10 @@ public class BossesController {
 
             SocketMessage message = new SocketMessage(MessageTypes.ROOM_BOSS_CHOOSE, bossInfo);
             InterfaceHandler.getInstance(parent).interfaceService.sendMessage(message);
+            this.parent.toBoss(boss, currentRoom.roomId);
+        } else {
+            // single
+            this.parent.toBoss(boss, -1);
         }
-        this.parent.toBoss(boss);
     }
 }

@@ -13,7 +13,7 @@ public class InterfaceRouter {
             }
             case "LOGIN_OK": {
                 interfaceController.setSession((String) message.getContent().get(1));
-                interfaceController.setSessionClicks(Integer.parseInt((String)message.getContent().get(2)));
+                interfaceController.setSessionUserClicks(Integer.parseInt((String)message.getContent().get(2)));
                 return new Info("menu");
             }
             case "REGISTER_USER_ALREADY_EXISTS":
@@ -34,9 +34,16 @@ public class InterfaceRouter {
             case "ROOM_CHOOSE_BOSS_OK": {
                 return new Info("toBossFromRoom", message.getContent());
             }
+            case "ROOM_LEAVE_BOSS_OK": {
+                return new Info("leaveBossRoom", message.getContent());
+            }
             case "DATA_OK":{
-                interfaceController.setSessionClicks(Integer.parseInt(message.getContent().get(2).toString()));
+                // обновили клики в сессии
+                interfaceController.setSessionUserClicks(Integer.parseInt(message.getContent().get(2).toString()));
                 return new Info("single");
+            }
+            case "ROOM_UPDATE_OK": {
+                return new Info("updateBossData", message.getContent());
             }
             case "DATA_ERROR":{
 

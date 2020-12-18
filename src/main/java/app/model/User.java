@@ -1,7 +1,10 @@
 package app.model;
 
+import lombok.Setter;
+
 import java.io.Serializable;
 
+@Setter
 public class User implements Serializable {
     private int id;
     private String username;

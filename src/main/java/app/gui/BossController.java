@@ -2,7 +2,6 @@ package app.gui;
 
 import app.client.InterfaceHandler;
 import app.gui.media.SoundPlayer;
-import app.model.Room;
 import app.network.messages.MessageTypes;
 import app.network.messages.SocketMessage;
 import javafx.fxml.FXML;
@@ -10,15 +9,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-import javax.sound.sampled.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class BossController {
     private GameGUI parent; // replace by interface
     private int health;
     private int score;
+    private String soundFileName;
 
     @FXML
     public Text bossName;
@@ -42,6 +39,7 @@ public class BossController {
         this.healhFieled.setText("Health: " + Integer.toString(health));
         this.score = InterfaceHandler.getInstance(this.parent).getSessionClicks(); // взяли score юзера
         this.bossView.setImage(new Image(img));
+        this.soundFileName = name;
     }
 
     public void click() {
@@ -53,7 +51,7 @@ public class BossController {
         if (this.health > 0) this.health--;
         scoreField.setText("Score: " + this.score);
         healhFieled.setText("Health: " + this.health);
-        SoundPlayer.playSound("ohh.wav");
+        SoundPlayer.playSound(soundFileName + ".wav");
 
         // multi-player
         if (roomId != -1) {
@@ -70,7 +68,6 @@ public class BossController {
         if (this.health > 0) this.health--;
         scoreField.setText("Score: " + this.score);
         healhFieled.setText("Health: " + this.health);
-        SoundPlayer.playSound("oh.wav");
     }
 
     public void toBosses() {

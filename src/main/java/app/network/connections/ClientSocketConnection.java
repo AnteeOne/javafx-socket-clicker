@@ -62,7 +62,6 @@ public class ClientSocketConnection implements Connection {
                 }
             } catch (InterruptedException | IOException | ClassNotFoundException e) {
                 throw new IllegalStateException(e.getMessage());
-                //todo: replace catch clause
             }
         });
         thread.setPriority(Thread.MIN_PRIORITY);

@@ -1,10 +1,13 @@
 package app.data;
 
+import app.services.LoggerService;
 import app.settings.DatabaseSettings;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import static app.services.LoggerService.println;
 
 
 public class DatabaseConnection {
@@ -21,8 +24,7 @@ public class DatabaseConnection {
             String username = DatabaseSettings.DATABASE_USERNAME;
             this.connection = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException ex) {
-            System.err.println("Database Connection Creation Failed : " + ex.getMessage());
-            ex.printStackTrace();
+            println(LoggerService.level.ERROR.name(),"server","Database connection creation failed");
         }
     }
 

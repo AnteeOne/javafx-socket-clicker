@@ -7,11 +7,14 @@ import app.network.connections.ClientSocketConnection;
 import app.network.connections.Connection;
 import app.network.interfaces.MessageListener;
 import app.network.messages.Message;
+import app.services.LoggerService;
 import app.settings.NetworkSettings;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+
+import static app.services.LoggerService.println;
 
 public class InterfaceHandler implements MessageListener {
 
@@ -29,8 +32,7 @@ public class InterfaceHandler implements MessageListener {
             interfaceService = new InterfaceService(connection);
             this.ui = ui;
         } catch (IOException e) {
-            e.printStackTrace();
-            //todo: replace with logger
+            println(LoggerService.level.ERROR.name(),"client","Error with getting localhost address");
         }
     }
 

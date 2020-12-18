@@ -9,6 +9,7 @@ import app.model.Room;
 import app.network.messages.Message;
 import app.network.messages.MessageTypes;
 import app.network.messages.SocketMessage;
+import app.services.LoggerService;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -24,6 +25,8 @@ import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static app.services.LoggerService.println;
 
 public class GameGUI extends Application implements UI {
     private BossesController bosses;
@@ -89,7 +92,7 @@ public class GameGUI extends Application implements UI {
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            println(LoggerService.level.ERROR.name(),"client","Error with loading sign up ui");
         }
     }
 
@@ -103,7 +106,7 @@ public class GameGUI extends Application implements UI {
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            println(LoggerService.level.ERROR.name(),"client","Error with loading login ui");
         }
     }
 
@@ -118,7 +121,7 @@ public class GameGUI extends Application implements UI {
             primaryStage.show();
             trackPlayer.stop();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            println(LoggerService.level.ERROR.name(),"client","Error with loading menu ui");
         }
     }
 
@@ -135,7 +138,7 @@ public class GameGUI extends Application implements UI {
                 primaryStage.show();
                 trackPlayer.play();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                println(LoggerService.level.ERROR.name(),"client","Error with loading boss ui");
             }
         }
     }
@@ -151,7 +154,7 @@ public class GameGUI extends Application implements UI {
             primaryStage.show();
             trackPlayer.stop();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            println(LoggerService.level.ERROR.name(),"client","Error with loading bosses ui");
         }
     }
 
@@ -166,7 +169,7 @@ public class GameGUI extends Application implements UI {
             primaryStage.show();
             trackPlayer.stop();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            println(LoggerService.level.ERROR.name(),"client","Error with loading bosses ui");
         }
     }
 
@@ -180,7 +183,7 @@ public class GameGUI extends Application implements UI {
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            println(LoggerService.level.ERROR.name(),"client","Error with loading room ui");
         }
     }
 
@@ -195,7 +198,7 @@ public class GameGUI extends Application implements UI {
             primaryStage.show();
             trackPlayer.stop();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            println(LoggerService.level.ERROR.name(),"client","Error with loading room ui");
         }
     }
 

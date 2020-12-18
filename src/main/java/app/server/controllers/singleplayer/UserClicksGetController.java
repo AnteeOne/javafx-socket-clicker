@@ -7,10 +7,13 @@ import app.network.connections.ServerSocketConnection;
 import app.network.messages.MessageTypes;
 import app.network.messages.SocketMessage;
 import app.server.controllers.Controller;
+import app.services.LoggerService;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static app.services.LoggerService.println;
 
 public class UserClicksGetController extends Controller
 {
@@ -32,9 +35,10 @@ public class UserClicksGetController extends Controller
             data.add(user.getUsername());
             data.add(String.valueOf(user.getClicksCount()));
             getConnection().send(new SocketMessage(MessageTypes.USER_CLICKS_GET,data));
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-            //todo
+        } catch (SQLException e) {
+            println(LoggerService.level.ERROR.name(),"server","Unable to get clicks from database for " + headers.get(0));
+        } catch (IOException e) {
+            println(LoggerService.level.ERROR.name(),"server","Unable to send getting clicks status message for " + headers.get(0));
         }
     }
 

@@ -11,7 +11,7 @@ public class TrackPlayer {
     private MediaPlayer player;
 
     private final String SOUNDS_DIRECTORY = "src/main/resources/media/";
-    private final double PLAYER_VOLUME = 0.3;
+    private final double PLAYER_VOLUME = 0.05;
 
     public TrackPlayer(String fileName){
         this.player = new MediaPlayer(

@@ -62,6 +62,10 @@ public class MessageRouter implements Router {
                 new RoomUpdateController(connection).runBroadcast(headers,connections);
                 break;
             }
+            case DISCONNECT:{
+                new DisconnectController(connection).runBroadcast(headers,connections);
+                break;
+            }
 
             default:;
         }

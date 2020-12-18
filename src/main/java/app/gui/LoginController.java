@@ -8,32 +8,28 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
-public class RegistrationController {
+public class LoginController {
     private GameGUI parent;
 
     @FXML
-    public TextField login;
+    public TextField userLogin;
 
     @FXML
-    public TextField password;
-
-    @FXML
-    public TextField passwordRepeat;
+    public TextField userPass;
 
     public void init(GameGUI parent) {
         this.parent = parent;
     }
 
-    public void signUp() {
+    public void login() {
         ArrayList<String> userInfo = new ArrayList<>();
-        userInfo.add(login.getText());
-        userInfo.add(password.getText());
-        userInfo.add(passwordRepeat.getText());
-        SocketMessage message = new SocketMessage(MessageTypes.REGISTER, userInfo);
+        userInfo.add(userLogin.getText());
+        userInfo.add(userPass.getText());
+        SocketMessage message = new SocketMessage(MessageTypes.LOGIN, userInfo);
         InterfaceHandler.getInstance(this.parent).interfaceService.sendMessage(message);
     }
 
-    public void toLogin() {
-        this.parent.toLogin();
+    public void toSignUp() {
+        this.parent.toSignUp();
     }
 }

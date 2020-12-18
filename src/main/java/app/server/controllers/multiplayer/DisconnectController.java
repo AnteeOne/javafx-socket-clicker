@@ -43,12 +43,11 @@ public class DisconnectController extends Controller implements IBroadcastSender
     public void runBroadcast(ArrayList<String> headers , ArrayList<ServerSocketConnection> connections) {
 
         Integer roomId = Integer.parseInt(headers.get(1));
-
         //update user's data before disconnecting
         ArrayList<String> cpHeaders = new ArrayList<>();
         cpHeaders.add(headers.get(0));
         cpHeaders.add(headers.get(2));
-        new UserClicksPutController(getConnection()).run(headers);
+        new UserClicksPutController(getConnection()).run(cpHeaders);
 
         //deleting disconnected user from room
         if (roomId!=-1) {
@@ -67,9 +66,7 @@ public class DisconnectController extends Controller implements IBroadcastSender
 
         println(LoggerService.level.INFO.name(),"server",headers.get(0)
                 + " has been disconnected from the server");
-
-        connections.forEach(c -> System.out.print(c.getSessionUsername() + ","));
-        System.out.println("");
+        println(LoggerService.level.INFO.name(),"server","Available connections count = " + connections.size());
 
     }
 

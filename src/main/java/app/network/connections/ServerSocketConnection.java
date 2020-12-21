@@ -56,8 +56,7 @@ public class ServerSocketConnection implements Connection {
                }
                println(LoggerService.level.INFO.name(),"server","Client has been disconnected");
            } catch (InterruptedException | IOException | ClassNotFoundException e) {
-               throw new IllegalStateException(e.getMessage());
-               //todo: replace catch clause
+               throw new IllegalStateException(e);
            }
         });
         thread.setPriority(Thread.MIN_PRIORITY);

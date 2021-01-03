@@ -62,7 +62,6 @@ public class ClientSocketConnection implements Connection {
                 }
             } catch (InterruptedException | IOException | ClassNotFoundException e) {
                 throw new IllegalStateException(e.getMessage());
-                //todo: replace catch clause
             }
         });
         thread.setPriority(Thread.MIN_PRIORITY);
@@ -103,6 +102,10 @@ public class ClientSocketConnection implements Connection {
         return socket.isConnected();
     }
 
+    public Session getSession(){
+        return this.session;
+    }
+
     // fixme
     public String getSessionUsername() {
         return session.getUsername();
@@ -114,7 +117,19 @@ public class ClientSocketConnection implements Connection {
         println(level.INFO.name(),"client","Has been set session username: " + sessionUsername);
     }
 
-    public Session getSession(){
-        return this.session;
+    public void setSessionUserClicks(int clicks) {
+        this.session.setClicksCount(clicks);
+    }
+
+    public void setSessionRoomClicks(int clicks) {
+        this.session.setClicksCount(clicks);
+    }
+
+    public int getSessionUserClicks() {
+        return this.session.getClicksCount();
+    }
+
+    public int getSessionRoomClicks() {
+        return this.session.getRoomClicksCount();
     }
 }

@@ -6,6 +6,7 @@ import app.network.connections.Connection;
 import app.network.messages.MessageTypes;
 import app.network.messages.SocketMessage;
 import app.server.controllers.Controller;
+import app.services.LoggerService;
 
 import static app.services.UserValidationService.*;
 import static app.services.LoggerService.*;
@@ -57,21 +58,18 @@ public class RegisterController extends Controller {
                 }
             }
         } catch (SQLException e) {
-            println(level.ERROR.name(), "server", "SQL Error");
-            throw new IllegalStateException("SQL Exception", e);
+            println(LoggerService.level.ERROR.name(),"server","Error with getting "+ headers.get(0) + " from database for sign up");
         } catch (IOException e) {
-            println(level.ERROR.name(), "server", "IO Error");
-            throw new IllegalStateException("IO Exception", e);
-            // If happened some error in headers ,
+            println(LoggerService.level.ERROR.name(),"server","Error with getting "+ headers.get(0) + " from database for sign up");
+
         } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
             println(level.ERROR.name(), "server", "Incorrect message has been accepted");
             ArrayList<String> statusData = new ArrayList<String>();
             statusData.add(ErrorCode.REGISTER_INCORRECT_DATA.name());
             try {
                 getConnection().send(new SocketMessage(MessageTypes.STATUS, statusData));
             } catch (IOException ex) {
-                throw new IllegalStateException("IO Exception", e);
+                println(LoggerService.level.ERROR.name(),"server","Error with sending status message from register controller");;
             }
         }
 

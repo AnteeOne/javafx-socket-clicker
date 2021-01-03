@@ -1,9 +1,13 @@
 package app.gui.media;
 
+import app.services.LoggerService;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+
+import static app.services.LoggerService.println;
 
 public class SoundPlayer {
 
@@ -16,16 +20,8 @@ public class SoundPlayer {
             Clip clip = AudioSystem.getClip();
             clip.open(audioIn);
             clip.start();
-        }
-        catch (LineUnavailableException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        }
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            println(LoggerService.level.ERROR.name(),"client","Error with playing sound"); }
     }
 
 }

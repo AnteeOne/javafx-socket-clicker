@@ -7,6 +7,7 @@ import app.network.connections.ServerSocketConnection;
 import app.network.messages.MessageTypes;
 import app.network.messages.SocketMessage;
 import app.server.controllers.Controller;
+import app.services.LoggerService;
 
 import static app.services.UserValidationService.*;
 import static app.services.LoggerService.*;
@@ -44,12 +45,10 @@ public class LoginController extends Controller {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            //todo:add own exception
+            println(LoggerService.level.ERROR.name(),"server","Error with getting "+ headers.get(0) + " from database for sign in");
         }
         catch (IOException e){
-            e.printStackTrace();
-            //todo:add own exception
+            println(LoggerService.level.ERROR.name(),"server","Error with sending "+ headers.get(0) + " message  for sign in in client");
         }
 
     }

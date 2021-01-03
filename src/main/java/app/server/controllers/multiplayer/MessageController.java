@@ -5,6 +5,7 @@ import app.network.connections.ServerSocketConnection;
 import app.network.messages.MessageTypes;
 import app.network.messages.SocketMessage;
 import app.server.controllers.Controller;
+import app.services.LoggerService;
 
 import static app.services.LoggerService.*;
 
@@ -29,7 +30,7 @@ public class MessageController extends Controller {
             try {
                 con.send(new SocketMessage(MessageTypes.MESSAGE,headers));
             } catch (IOException e) {
-                throw new IllegalStateException(e);
+                println(LoggerService.level.ERROR.name(),"server","Error with sending broadcast message");
             }
 
         }

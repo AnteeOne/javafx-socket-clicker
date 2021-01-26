@@ -6,5 +6,5 @@ Java course semestral work - Simple Online Clicker Game
 - JavaFX
 - PostgreSQL
 ## Screenshots
-<img src="https://github.com/AnteeOne/SimpleAndroidLoginApplication/blob/master/Images/1.jpg" width="200">
-<img src="https://github.com/AnteeOne/SimpleAndroidLoginApplication/blob/master/Images/1.jpg" width="200">
+<img src="https://github.com/AnteeOne/javafx-socket-clicker/blob/master/images/2.png" width="800">
+<img src="https://github.com/AnteeOne/javafx-socket-clicker/blob/master/images/1.png" width="800">
